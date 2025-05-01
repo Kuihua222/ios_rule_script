@@ -1,3 +1,0 @@
-[Script]
-# 当系统网络变化时触发脚本
-network-changed = type=event,event-name=network-changed,control-api=1,debug=1,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge/Group_change/wifi-cell-switch.js
