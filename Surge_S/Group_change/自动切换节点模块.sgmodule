@@ -1,3 +1,10 @@
+#!name=Group-Auto
+#!desc=依据网络环境自动切换节点
+#!system=ios
+# 作者K
+# 更新日期：2025.05.1
+# 版本：2.0
+
 [Script]
 # 当系统网络变化时触发脚本
 network-changed = type=event,event-name=network-changed,control-api=1,debug=1,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/wifi-cell-switch.js
