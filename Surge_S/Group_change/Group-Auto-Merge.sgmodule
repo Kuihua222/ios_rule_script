@@ -5,4 +5,4 @@
 #!arguments-desc=Group:策略组名称\nWifiNode:Wi-Fi节点名称\nCellNode:移动数据节点名称
 
 [Script]
-Group-Auto = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto.js,argument="{{{Group}}},{{{WifiNode}}},{{{CellNode}}}",debug=1
+Group-Auto = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto-Merge.js,argument="{{{Group}}},{{{WifiNode}}},{{{CellNode}}}",debug=1
