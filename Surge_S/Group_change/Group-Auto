@@ -1,0 +1,8 @@
+#!name=Group-Auto
+#!desc=依据网络环境自动切换节点（可配置版）
+#!category=Tool
+#!arguments=Group:"♾️",WifiNode:"VPS",CellNode:"VPS2Free"
+#!arguments-desc=Group:策略组名称\nWifiNode:Wi-Fi节点名称\nCellNode:移动数据节点名称
+
+[Script]
+Group-Auto = type=event,event-name=network-changed,script-path=group-auto.js,argument="{{{Group}}},{{{WifiNode}}},{{{CellNode}}}",debug=1
