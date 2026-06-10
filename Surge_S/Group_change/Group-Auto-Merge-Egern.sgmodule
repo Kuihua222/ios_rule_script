@@ -8,8 +8,8 @@
 
 # ========== 面板（显示当前状态） ==========
 [Panel]
-NetworkGroupPanel = type=script, script-path=https://raw.githubusercontent.com/你的用户名/你的仓库/group_auto_switch.js, argument={"type":"panel"}
+NetworkGroupPanel = type=script, script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto-Merge-Egern.js, argument={"type":"panel"}
 
 # ========== 自动切换脚本（网络变化时触发） ==========
 [Script]
-NetworkAutoSwitch = type=network, script-path=https://raw.githubusercontent.com/你的用户名/你的仓库/group_auto_switch.js, argument={"type":"network"}
+NetworkAutoSwitch = type=network, script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto-Merge-Egern.js, argument={"type":"network"}
