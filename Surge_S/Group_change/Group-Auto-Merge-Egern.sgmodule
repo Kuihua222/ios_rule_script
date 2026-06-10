@@ -1,0 +1,15 @@
+#!name=网络策略组自动切换
+#!desc=根据 Wi-Fi / 蜂窝网络自动切换策略组节点（支持最多3组），并显示状态面板
+#!author=Kuihua22
+#!category=Tool
+
+# ========== 模块参数（JSON 格式，修改这里即可） ==========
+#!argument={"G1":"♾️","W1":"VPS","C1":"VPS2Free","G2":"","W2":"","C2":"","G3":"","W3":"","C3":""}
+
+# ========== 面板（显示当前状态） ==========
+[Panel]
+NetworkGroupPanel = type=script, script-path=https://raw.githubusercontent.com/你的用户名/你的仓库/group_auto_switch.js, argument={"type":"panel"}
+
+# ========== 自动切换脚本（网络变化时触发） ==========
+[Script]
+NetworkAutoSwitch = type=network, script-path=https://raw.githubusercontent.com/你的用户名/你的仓库/group_auto_switch.js, argument={"type":"network"}
