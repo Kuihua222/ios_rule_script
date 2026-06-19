@@ -1,5 +1,5 @@
 #!name=Group-Auto-Merge
-#!desc=依据网络环境自动切换节点（支持3组策略切换，仅单次通知）
+#!desc=依据网络环境自动切换节点（支持3组策略切换，时间配置，仅单次通知）
 #!category=Tool
 #!arguments=G1:"♾️", W1:"VPS", C1:"VPS2Free", G2:"", W2:"", C2:"", G3:"", W3:"", C3:"", D:"3000"
 #!arguments-desc=【第一组】\nG1: 策略组名 \nW1: Wi-Fi节点 \nC1: 流量节点\n\n【第二组】\nG2: 策略组名 \nW2: Wi-Fi节点 \nC2: 流量节点\n\n【第三组】(留空则不生效)\nG3: 策略组名 \nW3: Wi-Fi节点 \nC3: 流量节点\n\n【防抖延迟】\nD: 网络稳定等待时间（毫秒），默认3000（3秒）
