@@ -1,8 +1,9 @@
 #!name=Group-Auto-Merge
 #!desc=依据网络环境自动切换节点（支持3组策略切换，仅单次通知）
 #!category=Tool
-#!arguments=Delay:"2", G1:"♾️", W1:"VPS", C1:"VPS2Free", G2:"", W2:"", C2:"", G3:"", W3:"", C3:""
-#!arguments-desc=【其它】\nDelay：网络稳定等待时间（秒），默认 2 秒\n\n【第一组】\nG1：策略组名\nW1：Wi-Fi 节点\nC1：流量节点\n\n【第二组】\nG2：策略组名\nW2：Wi-Fi 节点\nC2：流量节点\n\n【第三组】（留空则不生效）\nG3：策略组名\nW3：Wi-Fi 节点\nC3：流量节点
+#!arguments=G1:"♾️", W1:"VPS", C1:"VPS2Free", G2:"", W2:"", C2:"", G3:"", W3:"", C3:""
+#!arguments-desc=【第一组】\nG1: 策略组名 \nW1: Wi-Fi节点 \nC1: 流量节点\n\n【第二组】\nG2: 策略组名 \nW2: Wi-Fi节点 \nC2: 流量节点\n\n【第三组】(留空则不生效)\nG3: 策略组名 \nW3: Wi-Fi节点 \nC3: 流量节点
 
 [Script]
-Group-Auto-Merge = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto-Merge.js,argument="{{{Delay}}}|{{{G1}}},{{{W1}}},{{{C1}}}|{{{G2}}},{{{W2}}},{{{C2}}}|{{{G3}}},{{{W3}}},{{{C3}}}",timeout=10
+# 请确保下方 URL 指向你更新后的 JS
+Group-Auto-Merge = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/Kuihua222/ios_rule_script/master/Surge_S/Group_change/Group-Auto-Merge.js,argument="{{{G1}}},{{{W1}}},{{{C1}}},{{{G2}}},{{{W2}}},{{{C2}}},{{{G3}}},{{{W3}}},{{{C3}}}",timeout=10
