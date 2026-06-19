@@ -1,129 +1,64 @@
 /**
- * @description 根据网络类型自动切换多组策略组节点
- * @author Kuihua
- *
- * 功能：
- * 1. 支持最多 3 组策略组自动切换
- * 2. Wi-Fi 与蜂窝自动选择不同节点
- * 3. 防抖机制（Delay 可调）
- * 4. 状态记忆，避免重复切换
- * 5. 单次通知
+ * @description 根据网络类型自动切换多组策略组节点（增加防抖与状态记忆）
  */
 
-const argument = $argument || "";
+const args = ($argument || "").split(",").map(item => item.trim());
 
-/**
- * argument 格式：
- * Delay|G1,W1,C1|G2,W2,C2|G3,W3,C3
- */
-
-const sections = argument.split("|");
-
-// Delay
-const delaySeconds = Math.max(
-  parseFloat(sections[0]) || 2,
-  0
-);
-
-// 三组配置
-const groups = sections.slice(1);
-
-/**
- * 获取当前网络状态
- */
-function getNetworkState() {
+// 获取当前瞬时的网络状态标识
+const getNetworkState = () => {
   const isWifi = $network.wifi && $network.wifi.ssid;
   return isWifi ? $network.wifi.ssid : "Cellular";
-}
+};
 
 const initialNetworkState = getNetworkState();
 
-const lastNetworkState = $persistentStore.read(
-  "LAST_NETWORK_STATE"
-);
+// 1. 读取上一次成功切换的网络状态，避免重复触发
+const lastNetworkState = $persistentStore.read("LAST_NETWORK_STATE");
 
-// 网络未变化，直接退出
 if (initialNetworkState === lastNetworkState) {
+  // 如果网络状态未发生实质改变（即波动后又恢复了原来的网络），直接结束
   $done();
 } else {
-
+  // 2. 延迟等待网络稳定（例如等待 3 秒）
+  // 注意：Surge 脚本默认超时时间是 5 秒。如果这里设置大于 5 秒，需在配置中加 timeout=10
   setTimeout(() => {
-
-    // 再次确认网络是否稳定
     const currentNetworkState = getNetworkState();
-
+    
+    // 3. 再次确认网络状态，如果这几秒内网络又变了，说明是持续不稳定波动，放弃本次切换
     if (currentNetworkState !== initialNetworkState) {
       $done();
       return;
     }
 
-    // 写入状态
-    $persistentStore.write(
-      currentNetworkState,
-      "LAST_NETWORK_STATE"
-    );
+    // 网络已稳定，记录最新状态到持久化存储
+    $persistentStore.write(currentNetworkState, "LAST_NETWORK_STATE");
 
-    const isWifi =
-      $network.wifi &&
-      $network.wifi.ssid;
+    const isWifi = $network.wifi && $network.wifi.ssid;
+    const networkType = isWifi ? `Wi-Fi (${currentNetworkState})` : "移动数据";
+    let messages = [];
 
-    const networkType = isWifi
-      ? `Wi-Fi (${currentNetworkState})`
-      : "移动数据";
+    // 执行分组切换逻辑
+    for (let i = 0; i < args.length; i += 3) {
+      const group = args[i];
+      const wifiNode = args[i + 1];
+      const cellNode = args[i + 2];
 
-    const messages = [];
+      if (!group || group === "") continue;
 
-    groups.forEach(item => {
+      const targetNode = isWifi ? wifiNode : cellNode;
+      $surge.setSelectGroupPolicy(group, targetNode);
+      messages.push(`"${group}" ➔ ${targetNode}`);
+    }
 
-      if (!item) return;
-
-      const [
-        group,
-        wifiNode,
-        cellNode
-      ] = item
-        .split(",")
-        .map(v => (v || "").trim());
-
-      // 未配置则跳过
-      if (!group) return;
-
-      const targetNode = isWifi
-        ? wifiNode
-        : cellNode;
-
-      // 节点为空则跳过
-      if (!targetNode) return;
-
-      try {
-
-        $surge.setSelectGroupPolicy(
-          group,
-          targetNode
-        );
-
-        messages.push(
-          `"${group}" → ${targetNode}`
-        );
-
-      } catch (e) {
-
-        console.log(
-          `[Group-Auto-Merge] 切换失败：${group} → ${targetNode}`
-        );
-      }
-    });
-
-    // 通知
+    // 统一推送通知
     if (messages.length > 0) {
       $notification.post(
         "🔄 策略组自动切换",
-        `当前环境：${networkType}`,
+        `当前环境: ${networkType}`,
         messages.join("\n")
       );
     }
 
     $done();
-
-  }, delaySeconds * 1000);
+  }, 2000); // 延迟 2000 毫秒（2 秒），可根据你的实际情况调整
 }
