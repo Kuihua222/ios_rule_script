@@ -4,6 +4,9 @@
 
 const args = ($argument || "").split(",").map(item => item.trim());
 
+// 读取延迟时间（毫秒），默认 3000
+const delay = parseInt(args[9], 10) || 3000;
+
 // 获取当前瞬时的网络状态标识
 const getNetworkState = () => {
   const isWifi = $network.wifi && $network.wifi.ssid;
@@ -19,11 +22,12 @@ if (initialNetworkState === lastNetworkState) {
   // 如果网络状态未发生实质改变（即波动后又恢复了原来的网络），直接结束
   $done();
 } else {
-  // 2. 延迟等待网络稳定（例如等待 3 秒）
-  // 注意：Surge 脚本默认超时时间是 5 秒。如果这里设置大于 5 秒，需在配置中加 timeout=10
+  // 2. 延迟等待网络稳定
+  // 注意：Surge 脚本默认超时时间是 5 秒。
+  // 如果 D 设置超过 5000，请确保 Script 的 timeout 足够大。
   setTimeout(() => {
     const currentNetworkState = getNetworkState();
-    
+
     // 3. 再次确认网络状态，如果这几秒内网络又变了，说明是持续不稳定波动，放弃本次切换
     if (currentNetworkState !== initialNetworkState) {
       $done();
@@ -34,11 +38,14 @@ if (initialNetworkState === lastNetworkState) {
     $persistentStore.write(currentNetworkState, "LAST_NETWORK_STATE");
 
     const isWifi = $network.wifi && $network.wifi.ssid;
-    const networkType = isWifi ? `Wi-Fi (${currentNetworkState})` : "移动数据";
+    const networkType = isWifi
+      ? `Wi-Fi (${currentNetworkState})`
+      : "移动数据";
+
     let messages = [];
 
     // 执行分组切换逻辑
-    for (let i = 0; i < args.length; i += 3) {
+    for (let i = 0; i < 9; i += 3) {
       const group = args[i];
       const wifiNode = args[i + 1];
       const cellNode = args[i + 2];
@@ -46,9 +53,14 @@ if (initialNetworkState === lastNetworkState) {
       if (!group || group === "") continue;
 
       const targetNode = isWifi ? wifiNode : cellNode;
+
       $surge.setSelectGroupPolicy(group, targetNode);
-      messages.push(`"${group}" ➔ ${targetNode}`);
+
+      messages.push(`"${group}"→ ${targetNode}`);
     }
+
+    // 显示当前配置的延迟时间
+    messages.push(`"⌛️"→ ${delay / 1000}s`);
 
     // 统一推送通知
     if (messages.length > 0) {
@@ -60,5 +72,5 @@ if (initialNetworkState === lastNetworkState) {
     }
 
     $done();
-  }, 3000); // 延迟 3000 毫秒（3 秒），可根据你的实际情况调整
+  }, delay);
 }
