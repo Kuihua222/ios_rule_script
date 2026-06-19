@@ -19,7 +19,7 @@ if (initialNetworkState === lastNetworkState) {
   // 如果网络状态未发生实质改变（即波动后又恢复了原来的网络），直接结束
   $done();
 } else {
-  // 2. 延迟等待网络稳定（例如等待 3 秒）
+  // 2. 延迟等待网络稳定（例如等待 2 秒）
   // 注意：Surge 脚本默认超时时间是 5 秒。如果这里设置大于 5 秒，需在配置中加 timeout=10
   setTimeout(() => {
     const currentNetworkState = getNetworkState();
