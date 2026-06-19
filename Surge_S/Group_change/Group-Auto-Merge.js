@@ -23,18 +23,17 @@ if (initialNetworkState === lastNetworkState) {
   $done();
 } else {
   // 2. 延迟等待网络稳定
-  // 注意：Surge 脚本默认超时时间是 5 秒。
-  // 如果 D 设置超过 5000，请确保 Script 的 timeout 足够大。
+  // 注意：如果 D 设置超过 5000，请确保 timeout 足够大
   setTimeout(() => {
     const currentNetworkState = getNetworkState();
 
-    // 3. 再次确认网络状态，如果这几秒内网络又变了，说明是持续不稳定波动，放弃本次切换
+    // 3. 再次确认网络状态
     if (currentNetworkState !== initialNetworkState) {
       $done();
       return;
     }
 
-    // 网络已稳定，记录最新状态到持久化存储
+    // 网络已稳定，记录最新状态
     $persistentStore.write(currentNetworkState, "LAST_NETWORK_STATE");
 
     const isWifi = $network.wifi && $network.wifi.ssid;
@@ -44,7 +43,7 @@ if (initialNetworkState === lastNetworkState) {
 
     let messages = [];
 
-    // 执行分组切换逻辑
+    // 执行分组切换逻辑（固定处理前三组）
     for (let i = 0; i < 9; i += 3) {
       const group = args[i];
       const wifiNode = args[i + 1];
@@ -56,11 +55,11 @@ if (initialNetworkState === lastNetworkState) {
 
       $surge.setSelectGroupPolicy(group, targetNode);
 
-      messages.push(`"${group}"→ ${targetNode}`);
+      messages.push(`"${group}" ➔ ${targetNode}`);
     }
 
-    // 显示当前配置的延迟时间
-    messages.push(`"⌛️"→ ${delay / 1000}s`);
+    // 单独显示当前配置的等待时间
+    messages.push(`"⌛️" ➔ ${delay / 1000}s`);
 
     // 统一推送通知
     if (messages.length > 0) {
