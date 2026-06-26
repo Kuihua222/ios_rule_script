@@ -1,0 +1,13 @@
+#!name=🔥 WPS 签到 & Cookie
+#!desc=自动获取 WPS Cookie + 每日签到（支持模块订阅）
+#!author=MaYIHEI（模块化 by Grok）
+#!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png
+#!homepage=https://github.com/MaYIHEI/paperclip
+
+[MITM]
+hostname = personal-act.wps.cn
+
+[Script]
+WPS Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js
+
+WPS签到 = type=cron,cronexp=0 10 * * *,timeout=120,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js
