@@ -1,0 +1,38 @@
+# NAME: 2TV
+# AUTHOR: 
+# REPO: 
+# UPDATED: 2026-09-20 00:00:00
+# DOMAIN: 3
+# DOMAIN-SUFFIX: 25
+# DOMAIN-KEYWORD: 2
+# TOTAL: 30
+DOMAIN,api.dandanplay.net // 弹幕
+DOMAIN,emby.bangumi.ca // bangumi
+DOMAIN,emby.trevely.de5.net // CMS 影视
+DOMAIN-SUFFIX,biliblili.uk // genshin 结束xpilipili
+DOMAIN-SUFFIX,taotu.ink // Added for: emby.taotu.ink:443
+DOMAIN-SUFFIX,cdn2emby.kdns.fr // cf 反代地址
+DOMAIN-SUFFIX,feimu.tv // 飞幕
+DOMAIN-SUFFIX,bb.emby.edu.kg // 步兵营
+DOMAIN-SUFFIX,zzm.li // 这只猫 emby
+DOMAIN-SUFFIX,missav.ai // Added for: missav.ai:443
+DOMAIN-SUFFIX,jable.tv // Added for: jable.tv:443
+DOMAIN-SUFFIX,yuanshen.help // Added for: yuanshen.help:443
+DOMAIN-SUFFIX,emby.pro // Added for: media.emby.pro:443
+DOMAIN-SUFFIX,qdz1.top // 起点公费服 CDN
+DOMAIN-SUFFIX,28.al // 起点站公费服
+# DOMAIN-SUFFIX,free.28.al // 起点公益 emby（已被 28.al 覆盖，注释掉防重复）
+DOMAIN-SUFFIX,emby.1l1.icu // PrejuDice
+DOMAIN-SUFFIX,reflix.top // reflix
+DOMAIN-SUFFIX,emos.best // emos
+DOMAIN-SUFFIX,jingzhe.pro // 惊蛰emby
+DOMAIN-SUFFIX,saturdayent.top // saturday emby
+DOMAIN-SUFFIX,nijigem.by // 二刺元主服务
+DOMAIN-SUFFIX,emby.levilde.bond // LL白
+DOMAIN-SUFFIX,liminalnet.pro // LL CDcdn
+DOMAIN-SUFFIX,ciallo.party // ciallo
+DOMAIN-SUFFIX,feiyue.lol // 飞跃彩虹
+DOMAIN-SUFFIX,sfcj.org // 非越 cf
+DOMAIN-SUFFIX,embyplus.org // 纸片人
+DOMAIN-KEYWORD,themoviedb // 搜刮
+DOMAIN-KEYWORD,tmdb // 搜刮
