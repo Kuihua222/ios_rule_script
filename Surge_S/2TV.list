@@ -6,10 +6,10 @@
 # DOMAIN-SUFFIX: 25
 # DOMAIN-KEYWORD: 2
 # TOTAL: 30
-DOMAIN,mi.ooxoo.cyou // MiCove
+DOMAIN-SUFFIX,ooxoo.cyou // MiCove
 DOMAIN,api.dandanplay.net // 弹幕
-DOMAIN,emby.bangumi.ca // bangumi
-DOMAIN,emby.trevely.de5.net // CMS 影视
+DOMAIN-SUFFIX,bangumi.ca // bangumi
+DOMAIN-SUFFIX,trevely.de5.net // CMS 影视
 DOMAIN-SUFFIX,biliblili.uk // genshin 结束xpilipili
 DOMAIN-SUFFIX,taotu.ink // Added for: emby.taotu.ink:443
 DOMAIN-SUFFIX,cdn2emby.kdns.fr // cf 反代地址
